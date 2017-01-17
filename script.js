@@ -1,29 +1,36 @@
-(function($) {
+function Toggler(section){
 
-    $(document).ready(function() {
-		
-		//wszystkie elementy <div>, posiadające zarówno klasę “grid” oraz klasę “grid-12”
-		var div = $("div.grid, div.grid-12");
-		
-		//wszystkie elementy <a>, których atrybut “href" zaczyna się na “http”, znajdujące się w elemencie o klasie “nav”
-		var a = $(".nav a[href^='http']");
-		
-		//wszystkie elementy <input>, których typ to “radio” lub “checkbox” oraz dodatkowo nie są aktualnie zaznaczone (checked)
-		var input = $("input[type='radio'], input[type='checkbox']").not(":checked");
-		
-		//wyłącznie pierwszy element <p>, który jest pusty (nie zawiera dzieci) oraz znajduje się w elemencie <div> z identyfikatorem “text“
-		var p = $("div#text p:first:empty");
-		
-		//wszystkie elementy z klasą “pagination-item”, które nie są elementem <span>
-		var i = $(":not(span).pagination-item");
+    this.section = document.querySelector(section);
 
-    });
+    if(!(this instanceof Toggler)){
+        return new Toggler(section);
+    }
+}
 
-})(jQuery);
+Toggler.prototype.getElem = function(){
+    return this.section;
+};
 
+Toggler.prototype.show = function(){
+    this.section.style.display = 'block';
+};
 
+Toggler.prototype.hide = function(){
+    this.section.style.display = 'none';
+};
 
-
+var elem = new Toggler("#section");
+var button = document.querySelector("#button");
+ 
+button.addEventListener("click", function() {
+ 
+    if(elem.getElem().style.display == "none") {
+        elem.show();
+    } else {
+        elem.hide();
+    }
+ 
+}, false);
 
 
 
